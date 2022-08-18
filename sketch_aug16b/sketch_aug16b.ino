@@ -2,13 +2,15 @@
 #define GREEN 10
 #define RED 8
 #define WHITE 13
+#define LED 11
 
 void setup() {
   Serial.begin(57600);
   pinMode(GREEN, OUTPUT);
   pinMode(YELLOW, OUTPUT);
   pinMode(RED, OUTPUT); 
-  pinMode(WHITE, OUTPUT);
+  pinMode(WHITE, OUTPUT); 
+//  아날로그 출력을 할때는 핀모드를 output으로 설정해주지 않아도 된다.
   
 }
 
@@ -37,10 +39,18 @@ void loop() {
     } else if (strRead.indexOf("W0") >= 0) {
       digitalWrite(WHITE, LOW);
     }
+    if (strRead.indexOf("L1") >= 0) {
+      for(int i=0; i<256; i++)
+      { analogWrite(LED,i);
+      delay(20);
+      }
+    } else if (strRead.indexOf("L0") >= 0) {
+      digitalWrite(LED, LOW);
 //    Serial.println(strRead);
   }
   delay(200);
-
+}
+}
 //  digitalWrite(GREEN, HIGH);
 //  digitalWrite(YELLOW, LOW);
 //  digitalWrite(RED, LOW) ;
@@ -54,4 +64,3 @@ void loop() {
 //  digitalWrite(RED, HIGH) ;
 //  delay(1000);
 // delay 1000은 1초 대기
-}
